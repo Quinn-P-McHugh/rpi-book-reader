@@ -6,37 +6,31 @@ Uses Google Python Style Guide: https://google.github.io/styleguide/pyguide.html
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 
-Builder.load_string("""
-<GUI>:
-    ImageButton:
-        source: './images/play-button.png'
-        size_hint: .2, .2
-""")
+Builder.load_file("gui.kv")
 
-paused = True   // Whether or not the book reader is currently paused.
+paused = True   # Whether or not the book reader is currently paused.
 
 class GUI(App, AnchorLayout):
     def build(self):
         return self
 
 class ImageButton(ButtonBehavior, Image):
-    """Represents an image with button functionality.
+    """Represents an Image that behaves like a button."""
 
-    Attributes:
-        ButtonBehavior: Mixin class that provides Button behavior
-        Image: Image class
-    """
-    def on_press(self):
+    def toggle_play_pause(self):
+        """Toggles the play/pause button"""
         global paused
         if (paused == True):
             self.source = "./images/pause-button.png"
         else:
             self.source = "./images/play-button.png"
         paused = not paused
+
 
 GUI().run()
