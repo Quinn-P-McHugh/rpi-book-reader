@@ -27,10 +27,7 @@ class ImageButton(ButtonBehavior, Image):
         """Toggles the play/pause button"""
         global paused
         if (paused == True):
-            self.source = "./images/pause-button.png"
+            self.source = "./icons/pause-button.png"
         else:
-            self.source = "./images/play-button.png"
+            self.source = "./icons/play-button.png"
         paused = not paused
-
-
-GUI().run()
