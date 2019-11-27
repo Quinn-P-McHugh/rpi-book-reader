@@ -1,12 +1,41 @@
 <GUI>:
-    BoxLayout:
-        ImageButton:
-            source: "./icons/fast-backward.png"
-            size_hint: .2, .2
-        ImageButton:
-            source: "./icons/play-button.png"
-            size_hint: .2, .2
-            on_press: self.toggle_play_pause()
-        ImageButton:
-            source: "./icons/fast-forward.png"
-            size_hint: .2, .2
+    do_default_tab: False
+    TabbedPanelItem:
+        text: "Player"
+        BoxLayout:
+            orientation: "vertical"
+            AnchorLayout:
+                anchor_y: "top"
+                BoxLayout:
+                    Label:
+                        text: "00:00:00"
+                    ProgressBar:
+                        value: .55
+                        min: 0
+                        max: 1
+                        size_hint_x: .9
+                    Label:
+                        text: '00:00:00'
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                ImageButton:
+                    text: "paused"
+                    source: "./icons/play-button.png"
+                    size_hint: .9, .9
+                    on_press: self.toggle_state()
+            BoxLayout:
+                ImageButton:
+                    size_hint: .5, .5
+                    source: "./icons/fast-backward.png"
+                ImageButton:
+                    size_hint: .5, .5
+                    source: "./icons/step-backward.png"
+                ImageButton:
+                    size_hint: .5, .5
+                    source: "./icons/step-forward.png"
+                ImageButton:
+                    size_hint: .5, .5
+                    source: "./icons/fast-forward.png"
+    TabbedPanelItem:
+        text: "Camera"

@@ -11,23 +11,33 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.label import Label
+from kivy.uix.progressbar import ProgressBar
+from kivy.uix.tabbedpanel import TabbedPanel
 
 Builder.load_file("gui.kv")
 
 paused = True   # Whether or not the book reader is currently paused.
 
-class GUI(App, AnchorLayout):
+class GUI(App, TabbedPanel):
+    paused = True
+
     def build(self):
         return self
 
+    def get_paused(self):
+
+        return paused
+
 class ImageButton(ButtonBehavior, Image):
     """Represents an Image that behaves like a button."""
-
-    def toggle_play_pause(self):
+    def toggle_state(self):
         """Toggles the play/pause button"""
-        global paused
-        if (paused == True):
+        app = App.get_running_app()
+        if (app.paused == True):
             self.source = "./icons/pause-button.png"
         else:
             self.source = "./icons/play-button.png"
-        paused = not paused
+        app.paused = not app.paused
+
+gui = GUI()
+gui.run()
