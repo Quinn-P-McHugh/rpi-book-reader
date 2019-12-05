@@ -1,4 +1,4 @@
-<GUI>:
+<RPIBookReader>:
     do_default_tab: False
     TabbedPanelItem:
         text: "Player"
@@ -19,11 +19,11 @@
             AnchorLayout:
                 anchor_x: "center"
                 anchor_y: "center"
-                ImageButton:
-                    text: "paused"
+                ToggleButtonImage:
+                    state: "normal"
                     source: "./icons/play-button.png"
                     size_hint: .9, .9
-                    on_press: self.toggle_state()
+                    on_press: self.toggle_state(self, self.state)
             BoxLayout:
                 ImageButton:
                     size_hint: .5, .5
@@ -39,3 +39,8 @@
                     source: "./icons/fast-forward.png"
     TabbedPanelItem:
         text: "Camera"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            Camera:
+                play: True
