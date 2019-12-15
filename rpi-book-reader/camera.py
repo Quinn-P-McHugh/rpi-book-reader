@@ -4,6 +4,7 @@ Uses Google Python Style Guide: https://google.github.io/styleguide/pyguide.html
 """
 
 import datetime
+
 from picamera import PiCamera
 from datetime import datetime
 

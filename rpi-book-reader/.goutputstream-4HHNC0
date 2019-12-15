@@ -53,11 +53,9 @@ class ToggleButtonImage(ToggleButtonBehavior, Image):
         if (value == "down"):
             self.source = "./icons/pause-button.png"
             app.reader.play()
-            app.motor.run()
         else:
             self.source = "./icons/play-button.png"
             app.reader.pause()
-            app.motor.run()
 
 if __name__ == "__main__":
     app = RPIBookReader()

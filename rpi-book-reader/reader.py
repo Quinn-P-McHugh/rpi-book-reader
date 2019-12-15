@@ -5,9 +5,9 @@ Uses Google Python Style Guide: https://google.github.io/styleguide/pyguide.html
 
 from gtts import gTTS
 from enum import Enum
-import os
+from pathlib import Path
 from PIL import Image
-from playsound import playsound
+from playsound import *
 from pytesseract import *
 
 class Reader:
@@ -19,11 +19,11 @@ class Reader:
     """
 
     class Voice(Enum):
-        """Stores the list of voices the reader can use."""
-        GOOGLE = 1
+        """Valid voice options."""
+        GOOGLE = 1,
         PYTTSX = 2
 
-    def __init__(self, pathToTesseractEXE=None, voice=None):
+    def __init__(self, PATH_TO_TESSERACT_EXE=None, voice=None):
         """Initializes Reader class"""
         if voice is None:
             self.voice = Reader.Voice.GOOGLE
@@ -32,8 +32,8 @@ class Reader:
 
         self.paused = True
 
-        if pathToTesseractEXE is not None:
-            pytesseract.tesseract_cmd = pathToTesseractEXE
+        if PATH_TO_TESSERACT_EXE is not None:
+            pytesseract.tesseract_cmd = PATH_TO_TESSERACT_EXE
 
     def change_voice(self, voice):
         """Changes the reader's voice to the specified voice"""
@@ -61,6 +61,6 @@ class Reader:
         if (self.voice == Reader.Voice.GOOGLE):
             print ("reading")
             tts = gTTS(text='Good morning', lang='en')
-            audio_file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'audio', 'temp.mp3')
+            audio_file_path = Path.cwd() / "rpi-book-reader/audo/temp.mp3"
             tts.save(audio_file_path)
             playsound(audio_file_path)
