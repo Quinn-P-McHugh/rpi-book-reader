@@ -5,9 +5,12 @@ Uses Google Python Style Guide: https://google.github.io/styleguide/pyguide.html
 
 from gtts import gTTS
 from enum import Enum
+from kivy.core.audio import SoundLoader, Sound
 from pathlib import Path
 from PIL import Image
 from playsound import *
+from pydub import AudioSegment
+from pydub.playback import play
 from pytesseract import *
 
 class Reader:
@@ -48,6 +51,7 @@ class Reader:
 
     def play(self):
         """Plays the reader."""
+        self.__read("hello")
         self.paused = False
 
     def read_image(self, image_file):
@@ -59,8 +63,13 @@ class Reader:
 
     def __read(self, string):
         if (self.voice == Reader.Voice.GOOGLE):
-            print ("reading")
-            tts = gTTS(text='Good morning', lang='en')
-            audio_file_path = Path.cwd() / "rpi-book-reader/audo/temp.mp3"
+            tts = gTTS(text=string, lang='en')
+            audio_file_path = str(Path(__file__).parent / "audio/temp.mp3")
+
+            if Path(audio_file_path).is_file():
+                Path(audio_file_path).unlink()
             tts.save(audio_file_path)
-            playsound(audio_file_path)
+
+            print(audio_file_path)
+            sound = AudioSegment.from_file(audio_file_path, format="mp3")
+            play(sound)

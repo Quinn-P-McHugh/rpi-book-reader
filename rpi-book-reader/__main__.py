@@ -3,9 +3,9 @@
 Uses Google Python Style Guide: https://google.github.io/styleguide/pyguide.html
 """
 
-from camera import *
+#from camera import *
 from configparser import ConfigParser
-from motor import *
+#from motor import *
 from pathlib import Path
 from reader import *
 
@@ -28,10 +28,10 @@ class RPIBookReader(App, TabbedPanel):
 
     def build(self):
         config = ConfigParser()
-        config.read(Path.cwd() / "config.ini")
+        config.read(Path(__file__).parent /  "config.ini")
 
-        self.motor = Motor([10, 25, 8, 7])
-        self.camera = Camera()
+        #self.motor = Motor([10, 25, 8, 7])
+        #self.camera = Camera()
 
         path_to_tesseract_exe = config.get('TesseractSettings', 'PathToTesseractEXE')
         if (path_to_tesseract_exe is not None):
@@ -53,13 +53,11 @@ class ToggleButtonImage(ToggleButtonBehavior, Image):
         if (value == "down"):
             self.source = "./icons/pause-button.png"
             app.reader.play()
-            app.motor.run()
+            #app.motor.move()
         else:
             self.source = "./icons/play-button.png"
             app.reader.pause()
-            app.motor.run()
 
 if __name__ == "__main__":
     app = RPIBookReader()
     app.run()
-    
